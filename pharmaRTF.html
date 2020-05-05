@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mike Stackhouse" />
 
-<meta name="date" content="2020-05-01" />
+<meta name="date" content="2020-05-05" />
 
 <title>pharmaRTF</title>
 
@@ -301,14 +301,14 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">pharmaRTF</h1>
 <h4 class="author">Mike Stackhouse</h4>
-<h4 class="date">2020-05-01</h4>
+<h4 class="date">2020-05-05</h4>
 
 
 
 <div id="what-is-pharmartf" class="section level2">
 <h2>What is pharmaRTF?</h2>
 <p>If you’ve worked in the pharmaceutical industry as a SAS© programmer doing data analysis for clinical trials, there’s a fair chance that you’ve spent a good amount of time creating RTF outputs. While there are more modern document file formats supported by SAS© and other data analysis languages, RTF remains prolific. Though antiquated, RTF files still remain useful. They support the rich-text format necessary to create documents containing different fonts, colors, and text attributes. Furthermore, RTF documents make it easy for medical writers to insert outputs into different reports and publications as needed. Regardless, outputting data displays to RTF documents is a process embedded in many companies still to this day.</p>
-<p>There are many different table packages available in R. For example, <a href="https://cran.r-project.org/package=stargazer">stargazer</a> allows you to easily summarize data and create statistical tables in different output formats, such as LaTeX, HTML, ASCII. <a href="https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html">kableExtra</a> lets you build common complex tables and manipulate table styles in HTML outputs. RStudio has been developing <a href="https://github.com/rstudio/gt">gt</a> which aims to make table creation simple by breaking it into a cohesive set of parts. While there are many more options, few of these support RTF output.</p>
+<p>There are many different table packages available in R. For example, <a href="https://cran.r-project.org/package=stargazer">stargazer</a> allows you to easily summarize data and create statistical tables in different output formats, such as LaTeX, HTML, ASCII. <a href="https://haozhu233.github.io/kableExtra/awesome_table_in_html.html">kableExtra</a> lets you build common complex tables and manipulate table styles in HTML outputs. RStudio has been developing <a href="https://github.com/rstudio/gt">gt</a> which aims to make table creation simple by breaking it into a cohesive set of parts. While there are many more options, few of these support RTF output.</p>
 <p><em>Note: gt plans to support RTF in the future, but this functionality is not yet mature.</em></p>
 <p>One library, <a href="https://hughjonesd.github.io/huxtable/">huxtable</a>, does support RTF extensively - with a wide array of styling and formatting options. But there are a few important components missing:</p>
 <ul>
@@ -324,6 +324,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li>Titles and footnotes stored within the document headers and footers</li>
 </ul>
 <p><em>Note: we also plan to support GT tables when the RTF support matures</em></p>
+</div>
+<div id="a-small-note" class="section level2">
+<h2>A Small Note</h2>
+<p>Some of the syntax we use throughout this document uses the <code>%&gt;%</code> pipe operator. This is to display support for a tidyverse style of coding. You can find the <code>%&gt;%</code> operator in the <a href="https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">magittr</a> package.</p>
 </div>
 <div id="the-basics" class="section level2">
 <h2>The Basics</h2>
@@ -472,9 +476,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h2>Further Reading</h2>
 <p>This completes a basic introduction to using pharmaRTF, but there’s still more to learn!</p>
 <ul>
-<li>To learn tips and tricks for using huxtable with pharmaRTF, see <a href="huxtable_tips.html">this vignette</a></li>
-<li>To learn more advanced usage of pharmaRTF, see <a href="advanced_usage.html">this vignette</a></li>
-<li>To see how to read titles and footnotes from external files, see <a href="tf_from_file.html">this vignette</a></li>
+<li>To learn tips and tricks for using huxtable with pharmaRTF, see <a href="https://atorus-research.github.io/huxtable_tips.html">this vignette</a></li>
+<li>To learn more advanced usage of pharmaRTF, see <a href="https://atorus-research.github.io/advanced_usage.html">this vignette</a></li>
+<li>To see how to read titles and footnotes from external files, see <a href="https://atorus-research.github.io/tf_from_file.html">this vignette</a></li>
 </ul>
 </div>
 

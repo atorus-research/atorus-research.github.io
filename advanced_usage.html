@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mike Stackhouse" />
 
-<meta name="date" content="2020-05-01" />
+<meta name="date" content="2020-05-05" />
 
 <title>Advanced Usage of pharmaRTF</title>
 
@@ -301,7 +301,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Advanced Usage of pharmaRTF</h1>
 <h4 class="author">Mike Stackhouse</h4>
-<h4 class="date">2020-05-01</h4>
+<h4 class="date">2020-05-05</h4>
 
 
 
@@ -316,6 +316,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li>Split titles</li>
 <li>Special titles/footnote formats</li>
 </ul>
+</div>
+<div id="a-small-note" class="section level2">
+<h2>A Small Note</h2>
+<p>Some of the syntax we use throughout this document uses the <code>%&gt;%</code> pipe operator. This is to display support for a tidyverse style of coding. You can find the <code>%&gt;%</code> operator in the <a href="https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">magittr</a> package.</p>
 </div>
 <div id="understanding-document-orientation-within-pharmartf" class="section level2">
 <h2>Understanding Document Orientation Within pharmaRTF</h2>
@@ -343,7 +347,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="multi-level-column-headers" class="section level2">
 <h2>Multi-level Column Headers</h2>
-<p>A common requirement of tables is to have spanning column headers. When columns need to be grouped in presentation, this is common practice. This requires a combination of work within huxtable and pharmaRTF. The first thing you need to do is create your huxtable object. For more details on how to do this, see the <a href="huxtable_tips.html">huxtable tips vignette</a>.</p>
+<p>A common requirement of tables is to have spanning column headers. When columns need to be grouped in presentation, this is common practice. This requires a combination of work within huxtable and pharmaRTF. The first thing you need to do is create your huxtable object. For more details on how to do this, see the <a href="https://atorus-research.github.io/huxtable_tips.html">huxtable tips vignette</a>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Create the column headers data frame</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">column_headers &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="dt">Species =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;Species of Flower&quot;</span>),</a>
@@ -587,9 +591,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h2>Further Reading</h2>
 <p>If you have not already reviewed them, be sure to check out our other vignettes!</p>
 <ul>
-<li>To pick up the basics of using pharmaRTF, see <a href="pharmaRTF.html">this vignette</a></li>
-<li>To learn tips and tricks for using huxtable with pharmaRTF, see <a href="huxtable_tips.html">this vignette</a></li>
-<li>To see how to read titles and footnotes from external files, see <a href="tf_from_file.html">this vignette</a></li>
+<li>To pick up the basics of using pharmaRTF, see <a href="https://atorus-research.github.io/pharmaRTF.html">this vignette</a></li>
+<li>To learn tips and tricks for using huxtable with pharmaRTF, see <a href="https://atorus-research.github.io/huxtable_tips.html">this vignette</a></li>
+<li>To learn more advanced usage of pharmaRTF, see <a href="https://atorus-research.github.io/advanced_usage.html">this vignette</a></li>
 </ul>
 </div>
 

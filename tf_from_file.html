@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mike Stackhouse" />
 
-<meta name="date" content="2020-05-01" />
+<meta name="date" content="2020-05-05" />
 
 <title>Sourcing Titles and Footnotes From External Files</title>
 
@@ -301,76 +301,25 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Sourcing Titles and Footnotes From External Files</h1>
 <h4 class="author">Mike Stackhouse</h4>
-<h4 class="date">2020-05-01</h4>
+<h4 class="date">2020-05-05</h4>
 
 
 
-<p><em>We recommend that before reviewing this vignette, you review the <a href="pharmaRTF.html">basics of pharmaRTF</a> and <a href="advanced_usage.html">the more advanced features</a>.</em></p>
+<p><em>We recommend that before reviewing this vignette, you review the <a href="https://atorus-research.github.io/pharmaRTF.html">basics of pharmaRTF</a> and <a href="https://atorus-research.github.io/advanced_usage.html">the more advanced features</a>.</em></p>
 <div id="working-pharmartf-into-your-process" class="section level2">
 <h2>Working pharmaRTF Into Your Process</h2>
 <p>In this vignette, we will take you through some final features of pharmaRTF to help tie together how this package can centralize titles and footnotes within your organization, and show you the tools you need to embed this into your own internal process.</p>
 <p>Being able to specify everything directly in a program is useful. For adhoc tables or to quickly put together an output, keeping everything central and in one spot is nice. But in a mature process, companies typically have a strategy to centralize the assignment of titles and footnotes. Keeping all of your titles and footnotes in one place has many advantages. You can global replace changes that impact numerous outputs. You can keep separate repetitive text instead of repeating it for each table. Updates take place in one file instead of having to open each individual impacted program. In short, centralizing this process is highly desirable within an organization.</p>
 <p>pharmaRTF has the tools you need to make this process simple, and this comes from the function <code>titles_and_footnotes_from_df</code>. This function allows you to import your titles and footnotes from a data frame. That data frame can either come directly from your R session, or you can build a custom reader function to import the data from an external file. So let’s take a look.</p>
 </div>
+<div id="a-small-note" class="section level2">
+<h2>A Small Note</h2>
+<p>Some of the syntax we use throughout this document uses the <code>%&gt;%</code> pipe operator. This is to display support for a tidyverse style of coding. You can find the <code>%&gt;%</code> operator in the <a href="https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">magittr</a> package.</p>
+</div>
 <div id="how-it-works" class="section level2">
 <h2>How It Works</h2>
 <p>The idea behind <code>titles_and_footnotes_from_df</code> is simply that there is a set of expectations of what the data looks like that flows into the function. What that data looks like within an external file is irrelevant, as long as it can be transformed to meet the needs of <code>titles_and_footnotes_from_df</code> on the way in. This is possible because of the <code>reader</code> parameter. The <code>reader</code> parameter is just some function that returns a data frame, and that data frame must be compliant with the required variables and types expected by <code>titles_and_footnotes_from_df</code>. Those variables, types, and requirements are as follows.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Variable</th>
-<th align="left">Column.Types</th>
-<th align="left">Required</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">type</td>
-<td align="left">character</td>
-<td align="left">Yes</td>
-</tr>
-<tr class="even">
-<td align="left">text1</td>
-<td align="left">character</td>
-<td align="left">Yes</td>
-</tr>
-<tr class="odd">
-<td align="left">text2</td>
-<td align="left">character</td>
-<td align="left">No</td>
-</tr>
-<tr class="even">
-<td align="left">align</td>
-<td align="left">character</td>
-<td align="left">No</td>
-</tr>
-<tr class="odd">
-<td align="left">bold</td>
-<td align="left">logical</td>
-<td align="left">No</td>
-</tr>
-<tr class="even">
-<td align="left">italic</td>
-<td align="left">logical</td>
-<td align="left">No</td>
-</tr>
-<tr class="odd">
-<td align="left">font</td>
-<td align="left">character</td>
-<td align="left">No</td>
-</tr>
-<tr class="even">
-<td align="left">font_size</td>
-<td align="left">numeric</td>
-<td align="left">No</td>
-</tr>
-<tr class="odd">
-<td align="left">index</td>
-<td align="left">numeric</td>
-<td align="left">No</td>
-</tr>
-</tbody>
-</table>
+
 <p>These variables and types should all look familiar because they’re exactly what’s required for the object <code>hf_line</code>. In fact, <code>titles_and_footnotes_from_df</code> simply takes this data and applies the <code>add_titles</code> and <code>add_footnotes</code> function to the <code>rtf_doc</code> object to attach titles and footnotes.</p>
 <p><code>type</code> and <code>text1</code> are the only required values and this is because <code>titles_and_foonotes_from_df</code> needs to know where to attach the text, and needs to have text to attach. For variables that aren’t required, they may be omitted from the data returned by the reader function and the default values from the <code>hf_line</code> object will be used.</p>
 </div>
@@ -378,163 +327,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h2>Custom Reader Functions</h2>
 <p>The entire concept behind <code>titles_and_footnotes_from_df</code> is allowing the freedom of creating your own process. By allowing the user to pass in a custom reader function to the <code>reader</code> parameter, the source of given titles and footnotes can be anything the user wants. You could read from flat text, CSV, Excel, Access, any remote file that R can process and return a data frame meeting the above requirements is on the table.</p>
 <p>With this in mind, let’s consider a simple example. Assume that I have the excel file <code>titles.xlsx</code>. This file looks as follows:</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">table_number</th>
-<th align="right">index</th>
-<th align="left">type</th>
-<th align="left">text1</th>
-<th align="left">text2</th>
-<th align="left">align</th>
-<th align="left">bold</th>
-<th align="left">italic</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">14-2.01</td>
-<td align="right">1</td>
-<td align="left">title</td>
-<td align="left">Protocol: CDISCPILOT01</td>
-<td align="left">PAGE_FORMAT: Page %s of %s</td>
-<td align="left">split</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">14-2.01</td>
-<td align="right">2</td>
-<td align="left">title</td>
-<td align="left">Population: Intent-to-Treat</td>
-<td align="left">NA</td>
-<td align="left">left</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
-<td align="left">14-2.01</td>
-<td align="right">3</td>
-<td align="left">title</td>
-<td align="left">Table 14-2.01</td>
-<td align="left">NA</td>
-<td align="left">center</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">14-2.01</td>
-<td align="right">4</td>
-<td align="left">title</td>
-<td align="left">Summary of Demographic and Baseline Characteristics</td>
-<td align="left">NA</td>
-<td align="left">center</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
-<td align="left">14-2.01</td>
-<td align="right">1</td>
-<td align="left">footnote</td>
-<td align="left">[1] P-values are results of ANOVA treatment group comparison for continuous variable and Pearson’s chisquare test for categorical variables.</td>
-<td align="left">NA</td>
-<td align="left">left</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">14-2.01</td>
-<td align="right">2</td>
-<td align="left">footnote</td>
-<td align="left">NOTE: Duration of disease is computed as months between date of enrollment and date of onset of the first definite symptoms of Alzheimer’s disease.</td>
-<td align="left">NA</td>
-<td align="left">left</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
-<td align="left">14-2.01</td>
-<td align="right">3</td>
-<td align="left">footnote</td>
-<td align="left">FILE_PATH: Source: %s</td>
-<td align="left">DATE_FORMAT: %H:%M %A, %B %d, %Y</td>
-<td align="left">split</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">14-4.01</td>
-<td align="right">1</td>
-<td align="left">title</td>
-<td align="left">Protocol: CDISCPILOT01</td>
-<td align="left">PAGE_FORMAT: Page %s of %s</td>
-<td align="left">split</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
-<td align="left">14-4.01</td>
-<td align="right">2</td>
-<td align="left">title</td>
-<td align="left">Population: Safety</td>
-<td align="left">NA</td>
-<td align="left">left</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">14-4.01</td>
-<td align="right">3</td>
-<td align="left">title</td>
-<td align="left">Table 14-4.01</td>
-<td align="left">NA</td>
-<td align="left">center</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
-<td align="left">14-4.01</td>
-<td align="right">4</td>
-<td align="left">title</td>
-<td align="left">Summary of Planned Exposure to Study Drug, as of End of Study</td>
-<td align="left">NA</td>
-<td align="left">center</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">14-4.01</td>
-<td align="right">1</td>
-<td align="left">footnote</td>
-<td align="left">[1] Includes completers and early terminators.</td>
-<td align="left">NA</td>
-<td align="left">left</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
-<td align="left">14-4.01</td>
-<td align="right">2</td>
-<td align="left">footnote</td>
-<td align="left">[2] End of Study refers to week 26/Early Termination.</td>
-<td align="left">NA</td>
-<td align="left">left</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">14-4.01</td>
-<td align="right">3</td>
-<td align="left">footnote</td>
-<td align="left">FILE_PATH: Source: %s</td>
-<td align="left">DATE_FORMAT: %H:%M %A, %B %d, %Y</td>
-<td align="left">split</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-</tbody>
-</table>
-<p>(For more information about the special text fields you see here, see our <a href="advanced_usage.html">advanced usage</a> vignette)</p>
+
+<p>(For more information about the special text fields you see here, see our <a href="https://atorus-research.github.io/advanced_usage.html">advanced usage</a> vignette)</p>
 <p>Here I have everything I need to generate my titles. I just need to make sure of two things:</p>
 <ul>
 <li>My column types read in appropriately</li>
@@ -643,7 +437,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="putting-it-together" class="section level2">
 <h2>Putting It Together</h2>
-<p>Now with an understanding of how a custom reader function works, let’s tie it all together. Let’s assume that our table has been programmed, and that the huxtable table is ready in our session (see the <a href="huxtable_tips.html">huxtable tips vignette</a> to for tips on how to prepare your table). The huxtable table is our session looks like this:</p>
+<p>Now with an understanding of how a custom reader function works, let’s tie it all together. Let’s assume that our table has been programmed, and that the huxtable table is ready in our session (see the <a href="https://atorus-research.github.io/huxtable_tips.html">huxtable tips vignette</a> to for tips on how to prepare your table). The huxtable table is our session looks like this:</p>
 <table class="huxtable" style="border-collapse: collapse; margin-bottom: 2em; margin-top: 2em; width: 150%; margin-left: auto; margin-right: auto;  ">
 <col style="width: 36%"><col style="width: 7%"><col style="width: 10%"><col style="width: 11%"><col style="width: 11%"><col style="width: 10%"><col style="width: 11%"><col style="width: 11%"><tr>
 <td style="vertical-align: bottom; text-align: center; white-space: nowrap; padding: 0pt 4pt 0pt 4pt; font-weight: bold;"></td>
@@ -803,8 +597,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </tr>
 </table>
 
-<p><em>Note: The data here comes from the CDISC Pilot, which you can read about <a href="https://www.cdisc.org/sdtmadam-pilot-project">here</a>. Also, see our replication of the tables from this CDISC pilot in our <a href="link_tbd.com">Github repository</a>.</em></p>
-<p>Here’s how you would go about creating your <code>rtf_doc</code> object. (For more information about the functions being used here, see our <a href="advanced_usage.html">advanced usage</a> vignette)</p>
+<p><em>Note: The data here comes from the CDISC Pilot, which you can read about <a href="https://www.cdisc.org/sdtmadam-pilot-project">here</a>. Also, see our replication of the tables from this CDISC pilot in our <a href="https://github.com/atorus-research/CDISC_pilot_replication">Github repository</a>.</em></p>
+<p>Here’s how you would go about creating your <code>rtf_doc</code> object. (For more information about the functions being used here, see our <a href="https://atorus-research.github.io/advanced_usage.html">advanced usage</a> vignette)</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">doc &lt;-<span class="st"> </span><span class="kw">rtf_doc</span>(ht, <span class="dt">header_rows =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">titles_and_footnotes_from_df</span>(</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="dt">from.file=</span><span class="st">'../data/titles.xlsx'</span>,</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="dt">reader=</span>example_custom_reader,</a>
@@ -827,9 +621,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h2>Further Reading</h2>
 <p>If you have not already reviewed them, be sure to check out our other vignettes</p>
 <ul>
-<li>To pick up the basics of using pharmaRTF, see <a href="pharmaRTF.html">this vignette</a></li>
-<li>To learn tips and tricks for using huxtable with pharmaRTF, see <a href="huxtable_tips.html">this vignette</a></li>
-<li>To learn more advanced usage of pharmaRTF, see <a href="advanced_usage.html">this vignette</a></li>
+<li>To pick up the basics of using pharmaRTF, see <a href="https://atorus-research.github.io/pharmaRTF.html">this vignette</a></li>
+<li>To learn tips and tricks for using huxtable with pharmaRTF, see <a href="https://atorus-research.github.io/huxtable_tips.html">this vignette</a></li>
+<li>To learn more advanced usage of pharmaRTF, see <a href="https://atorus-research.github.io/advanced_usage.html">this vignette</a></li>
 </ul>
 </div>
 
